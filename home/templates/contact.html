@@ -1,40 +1,84 @@
-{% extends 'homebase.html' %}
-{% load static %}
-{% block title %} Contact Page || Absolute Journey {% endblock %}
-{% block keywords %} contact,contact us, absolute journey contact {% endblock %}
+{% extends 'homebase.html' %} 
+{% block title %} Contact Page || Absolute Journey 
+{% endblock %} 
+{% block keywords %} contact,contact us, absolute journey contact {% endblock %} 
 
 {% block inner_headline %}
 
-	<section id="inner-headline">
-      <div class="container">
+<section id="inner-headline">
+    <div class="container">
         <div class="row">
-          <div class="span4">
-            <div class="inner-heading">
-              <h2>Contact Us</h2>
+            <div class="span4">
+                <div class="inner-heading">
+                    <h2>Contact Us</h2>
+                </div>
             </div>
-          </div>
-          <div class="span8">
-            <ul class="breadcrumb">
-              <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-              <li class="active">Contact us</li>
-            </ul>
-          </div>
+            <div class="span8">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li class="active">Contact us</li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </section>
-{% endblock %}
+    </div>
+</section>
+{% endblock %} 
 
 {% block main_content %}
 
-	{{ contact.contact |safe }}
+<div class="row">
+    <div class="span6">
+        <h4>Get in touch with us by filling <strong>contact form below</strong></h4>
 
+        {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{message.tags}}" role="alert">
+                
+                {{ message }}
+              </div>
+          {% endfor %}
+        {% endif %}
 
-{% endblock %}
+        <form method="post" class="contactForm">
+            
+            {% csrf_token %}
+            <div id="sendmessage">Your message has been sent. Thank you!</div>
+            <div id="errormessage">There has been an error sending your message. Please try again.</div>
 
-{% block css %}
+            <div class="row">
+                <div class="span2 form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <div class="validation"></div>
+                </div>
+                <div class="span2 form-group">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                    <div class="validation"></div>
+                </div>
+                <div class="span2 form-group">
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 4 chars of subject" />
+                    <div class="validation"></div>
+                </div>
+                <div class="span6 margintop10 form-group">
+                    <textarea class="form-control" name="message" rows="12" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                    <div class="validation"></div>
+                    <p class="text-center">
+                        <button class="btn btn-large btn-theme margintop10" type="submit">Submit message</button>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="span6">
+        {{ contact.contact |safe }}
+    </div>
+</div>
 
-{% endblock %}
+{% endblock %} 
 
-{% block js %}
+{% block css %} 
+
+{% endblock %} 
+
+{% block js %} 
 
 {% endblock %}
