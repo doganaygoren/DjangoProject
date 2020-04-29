@@ -51,6 +51,7 @@ class Place(models.Model):
 	description=models.CharField(max_length=255)
 	image=models.ImageField(blank=True, upload_to='images/')
 	detail=RichTextUploadingField()
+	slug=models.SlugField(blank=True,max_length=100)
 	status=models.CharField(max_length=25,choices=STATUS)
 	created_at=models.DateTimeField(auto_now_add=True)
 	updated_at=models.DateTimeField(auto_now=True)

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from home.models import Setting, ContactFormMessage, ContactForm
+from place.models import Place
 from django.contrib import messages
 
 # Create your views here.
@@ -14,7 +15,9 @@ from django.contrib import messages
 def index(request):
 
 	setting= Setting.objects.get(pk=1)
-	content= {'setting': setting, 'page': 'home' }
+	slider= Place.objects.all()[2:5]
+
+	content= {'setting': setting, 'page': 'home', 'slider':slider }
 	return render(request, 'index.html', content)
 
 def about(request):
