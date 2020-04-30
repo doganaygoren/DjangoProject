@@ -4,22 +4,18 @@
 {% block description %} {{ setting.description }} {% endblock %} 
 
 {% block slider %}
-
-{% load static %}
 <section id="featured">
-
-    <div id="nivo-slider">
-        <div class="nivo-slider">
+<div id="nivo-slider">
+        <div style="height: 400px; width: 1224px;" class="nivo-slider">
             {% for sliderimage in slider %}
-            <img src="{{ sliderimage.image.url }}" alt="" title="#caption-2" style="width:1900px; height:500px;" /> 
-            
+            <a href="/places/{{ sliderimage.id }}"><img style="height: 600px; width: 1800px;" src="{{ sliderimage.image.url }}" alt="" title="#caption-{{ sliderimage.id }}"/></a> 
             {% endfor %}
         </div>
         <div class="container">
             <div class="row">
                 <div class="span12">
                     {% for sliderdata in slider %}
-                    <div class="nivo-caption" id="caption-2">
+                    <div class="nivo-caption" id="caption-{{ sliderdata.id }}">
                         <div>
                             <h2> {{ sliderdata.title }} </h2>
                             <p>{{ sliderdata.description }}</p>
@@ -32,9 +28,7 @@
             </div>
         </div>
     </div>
-    <!-- end slider -->
-</section>
-
+     </section>
 {% endblock %} 
 
 {% block main_content %} 

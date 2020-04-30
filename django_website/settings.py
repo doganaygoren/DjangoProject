@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'place.apps.PlaceConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'mptt',
 ]
 
 MIDDLEWARE = [
