@@ -1,0 +1,34 @@
+<section id="content">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <ul class="portfolio-categ filter">
+              <li class="all active"><a href="#">All</a></li>
+              {% for category in categories %}
+              <li class="{{ category.id }}"><a href="#" title="">{{ category.title }}</a></li>
+              {% endfor %}
+            </ul>
+            <div class="clearfix">
+            </div>
+            <div class="row">
+              <section id="projects">
+                <ul id="thumbs" class="portfolio">
+                	{% for place in places %}
+                  <!-- Item Project and Filter Name -->
+                  <li class="item-thumbs span4 design" data-id="id-0" data-type="{{ place.category_id }}">
+                    <!-- Fancybox - Gallery Enabled - Title - Full Image -->
+                    <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="{{ place.title }}" href="{{ place.image.url }}">
+						<span class="overlay-img"></span>
+						<span  class="overlay-img-thumb font-icon-plus"></span>
+					</a>
+                    <!-- Thumb Image and Description -->
+                    <a href="/place"><img style="height: 250px; width: 500px;" src="{{ place.image.url }}" alt="{{ place.description }}"></a>
+                  </li>
+                 {% endfor %}
+                </ul>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

@@ -24,7 +24,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class PlaceAdmin(admin.ModelAdmin):
 
-	list_display=['title','status','image_tag','category']
+	list_display=['title','category','image_tag','status']
 	list_filter=['status','created_at','category']
 	inlines=[PlaceImageInline]
 	readonly_fields=('image_tag',)

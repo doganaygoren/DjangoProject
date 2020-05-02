@@ -18,4 +18,6 @@ urlpatterns=[
 	path('about', views.about, name="about"),
 	# ex: /contact/
 	path('contact', views.contact, name="contact"),
+	# ex:/place/
+	path('place', views.place, name="place"),
 ]

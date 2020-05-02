@@ -33,10 +33,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('home/', include('home.urls')),
-    path('places/', include('place.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('about/', include ('home.urls')),
     path('contact/', include('home.urls')),
+    path('place/', include('home.urls'))
 
 ]
 

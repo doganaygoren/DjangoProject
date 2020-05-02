@@ -15,16 +15,20 @@ from django.contrib import messages
 def index(request):
 
 	setting= Setting.objects.get(pk=1)
-	slider= Place.objects.all().order_by('-id')[:3]
+	slider= Place.objects.all().order_by('?')[:3]
 	categories=Category.objects.all()
+	checkOutPlaces=Place.objects.all()[:10]
+	bestPlaces=Place.objects.all().order_by('?')[:4]
 
-	content= {'setting': setting, 'page': 'home', 'slider':slider, 'categories':categories }
+	content= {'setting': setting, 'page': 'home', 'slider':slider, 'categories':categories,
+				'checkOutPlaces':checkOutPlaces, 'bestPlaces': bestPlaces }
 	return render(request, 'index.html', content)
 
 def about(request):
 
 	about= Setting.objects.get(pk=1)
-	content= {'about': about, 'page':'about' }
+	categories=Category.objects.all()
+	content= {'about': about, 'page':'about', 'categories':categories }
 	return render(request, 'about.html', content)
 
 def contact(request):
@@ -45,5 +49,14 @@ def contact(request):
 			return HttpResponseRedirect('/contact')
 
 	contact=Setting.objects.get(pk=1)
-	content={'contact':contact, 'page':'contact'}
+	categories=Category.objects.all()
+	content={'contact':contact, 'page':'contact', 'categories':categories}
 	return render(request, 'contact.html', content)
+
+
+def place(request):
+
+	categories=Category.objects.all()
+	places=Place.objects.all()
+	content={'categories' : categories, 'places':places}
+	return render(request, 'place.html', content)
