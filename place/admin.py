@@ -1,5 +1,5 @@
 from django.contrib import admin
-from place.models import Category, Place,Images
+from place.models import Category, Place, Images, Comment
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.utils.html import format_html
 # Register your models here.
@@ -68,11 +68,13 @@ class CategoryAdmin2(DraggableMPTTAdmin):
 		return instance.places_cumulative_count
 	related_places_cumulative_count.short_description='Related Places(In Tree)'
 
+
+class CommentAdmin(admin.ModelAdmin):
+	list_display=['subject','place', 'user', 'status', 'created_at']
+	list_filter=['status', 'created_at']
+	list_editable=['status']
+
 admin.site.register(Category, CategoryAdmin2)
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Images, ImageAdmin)
-
-
-
-
-
+admin.site.register(Comment,CommentAdmin)

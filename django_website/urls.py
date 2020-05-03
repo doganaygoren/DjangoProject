@@ -32,12 +32,13 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    path('place/', include('place.urls')),
     path('home/', include('home.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('about/', include ('home.urls')),
     path('contact/', include('home.urls')),
-    path('place/', include('home.urls'))
-
+    path('place/', include('home.urls')),
+    path('place/<int:id>/<slug:slug>/', include('home.urls')),
 ]
 
 if settings.DEBUG: #new

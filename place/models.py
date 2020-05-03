@@ -3,6 +3,8 @@ from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.models import MPTTModel, TreeForeignKey
 from mptt.fields import TreeForeignKey
+from django.forms import ModelForm
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -84,3 +86,32 @@ class Images(models.Model):
 	def image_tag(self):
 		return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
 	image_tag.short_description='Image'
+
+
+class Comment(models.Model):
+
+	STATUS= (
+
+		('New', 'New'),
+		('True', 'Active'),
+		('False', 'Inactive'),
+	)
+
+	place=models.ForeignKey(Place, on_delete=models.CASCADE)
+	user=models.ForeignKey(User, on_delete=models.CASCADE)
+	subject=models.CharField(max_length=50)
+	comment=models.CharField(max_length=255)
+	rate=models.CharField(max_length=10)
+	ip=models.CharField(max_length=20)
+	status=models.CharField(max_length=10, choices=STATUS, default='New')
+	created_at=models.DateTimeField(auto_now_add=True)
+	updated_at=models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.subject
+
+class CommentForm(ModelForm):
+
+	class Meta:
+		model= Comment
+		fields=['subject', 'rate', 'comment']

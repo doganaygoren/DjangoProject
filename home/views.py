@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from home.models import Setting, ContactFormMessage, ContactForm
-from place.models import Place, Category
+from place.models import Place, Category, Images, Comment
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -60,3 +61,15 @@ def place(request):
 	places=Place.objects.all()
 	content={'categories' : categories, 'places':places}
 	return render(request, 'place.html', content)
+
+
+def placeDetail(request,id,slug):
+
+	place=Place.objects.get(id=id)
+	gallery= Images.objects.filter(place_id=id)
+	category=Category.objects.all()
+	lastPlaces=Place.objects.all().order_by('-id')[:3]
+	comments= Comment.objects.filter(place_id=id,status='True')
+	content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces, 'comments':comments}
+	return render(request, 'place-detail.html', content)
+
