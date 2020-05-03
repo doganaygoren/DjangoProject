@@ -12,5 +12,6 @@ urlpatterns=[
 	path('',views.index,name="index"),
 	# ex: place/comment/1
 	path('comment/<int:id>',views.placeComment,name="placeComment"),
-	
+	#ex: place/search
+	path('search', views.search, name="search"),
 ]

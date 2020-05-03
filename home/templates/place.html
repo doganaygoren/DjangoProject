@@ -24,48 +24,10 @@
 {% endblock %} 
 
 {% block main_content %}
-<!--
-<section id="content">
-      <div class="container">
-        <div class="row">
-          <div class="span12">
-            <ul class="portfolio-categ filter">
-              <li class="all active"><a href="#">All</a></li>
-              {% for category in categories %}
-              <li class="{{ category.id }}"><a href="#" title="">{{ category.title }}</a></li>
-              {% endfor %}
-            </ul>
-            <div class="clearfix">
-            </div>
-            <div class="row">
-              <section id="projects">
-                <ul id="thumbs" class="portfolio">
-                	{% for place in places %}
-
-                  <li class="item-thumbs span4 design" data-id="id-0" data-type="{{ place.category_id }}">
-
-                    <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="{{ place.title }}" href="{{ place.image.url }}">
-						<span class="overlay-img"></span>
-						<span  class="overlay-img-thumb font-icon-plus"></span>
-					</a>
-
-                    <a href="/place"><img style="height: 250px; width: 500px;" src="{{ place.image.url }}" alt="{{ place.description }}"></a>
-                  </li>
-                 {% endfor %}
-                </ul>
-              </section>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
--->
 
 <!-- ======= Portfolio Section ======= -->
 <section id="portfolio" class="portfolio">
     <div class="container">
-
         <div class="row" data-aos="fade-up">
             <div class="col-lg-12 d-flex justify-content-center">
                 <ul id="portfolio-flters">
@@ -79,7 +41,6 @@
         </div>
 
         <div class="row portfolio-container" data-aos="fade-up">
-
             {% for place in places %}
             <div class="portfolio">
                 <div class="col-lg-4 col-md-4 portfolio-item filter-{{ place.category_id }}">
@@ -103,19 +64,13 @@
 {% block css %}
 
 <link href="/static/django_website/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-
 <link href="/static/django_website/assets/vendor/venobox/venobox.css" rel="stylesheet">
-
 <link href="/static/django_website/assets/vendor/aos/aos.css" rel="stylesheet">
-
-<!-- Template Main CSS File -->
 <link href="/static/django_website/assets/css/style.css" rel="stylesheet"> 
 
 {% endblock %}
   
 {% block js %}
-
-<!-- Vendor JS Files -->
 
 <script src="/static/django_website/assets/vendor/jquery-sticky/jquery.sticky.js"></script>
 <script src="/static/django_website/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
@@ -123,8 +78,6 @@
 <script src="/static/django_website/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
 <script src="/static/django_website/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
 <script src="/static/django_website/assets/vendor/aos/aos.js"></script>
-
-<!-- Template Main JS File -->
 <script src="/static/django_website/assets/js/main.js"></script>
 
 {% endblock %}

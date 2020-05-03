@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from place.models import Comment, CommentForm
+from place.models import Comment, CommentForm,Place, Category
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import SearchForm
 
 # Create your views here.
 
@@ -38,3 +39,15 @@ def placeComment(request,id):
 
 	messages.warning(request, "Your Comment Could Not Been Sent. Please Check Your Comment.")
 	return HttpResponseRedirect(url)
+
+def search(request):
+
+	if request.method== 'POST':
+		form=SearchForm(request.POST)
+		if form.is_valid():
+			category=Category.objects.all()
+			query=form.cleaned_data['search']
+			results=Place.objects.filter(title__icontains=query)
+			content={'results':results,}
+			return render(request, 'place-search.html', content)
+	return HttpResponseRedirect('/')
