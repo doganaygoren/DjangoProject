@@ -42,8 +42,8 @@
 
         <div class="row portfolio-container" data-aos="fade-up">
             {% for place in places %}
-            <div class="portfolio">
-                <div class="col-lg-4 col-md-4 portfolio-item filter-{{ place.category_id }}">
+            <div style="width: 100%;" class="portfolio">
+                <div style="max-width: 30.8%" class="col-lg-4 col-md-4 portfolio-item filter-{{ place.category_id }}">
                     <li class="item-thumbs span4 design" style="list-style: none;">
                         <img style="height: 250px; width: 500px;" src="{{ place.image.url }}" class="img-fluid" alt=""></li>
                     <div class="portfolio-info">
@@ -55,6 +55,24 @@
                 </div>
             </div>
             {% endfor %}
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>App 1</h4>
+              <p>App</p>
+              <a href="assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <img src="/static/django_website/assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Web 3</h4>
+              <p>Web</p>
+              <a href="assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
         </div>
 </section>
 <!-- End Portfolio Section -->
@@ -66,8 +84,7 @@
 <link href="/static/django_website/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 <link href="/static/django_website/assets/vendor/venobox/venobox.css" rel="stylesheet">
 <link href="/static/django_website/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="/static/django_website/assets/css/style.css" rel="stylesheet"> 
-
+<link href="/static/django_website/assets/css/style.css" rel="stylesheet">
 {% endblock %}
   
 {% block js %}
