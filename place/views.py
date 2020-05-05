@@ -4,6 +4,7 @@ from place.models import Comment, CommentForm,Place, Category
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SearchForm
+import json
 
 # Create your views here.
 
@@ -51,3 +52,19 @@ def search(request):
 			content={'results':results,}
 			return render(request, 'place-search.html', content)
 	return HttpResponseRedirect('/')
+
+
+def search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term', '')
+    places = Place.objects.filter(title__icontains=q)
+    results = []
+    for pl in places:
+      place_json = {}
+      place_json = pl.city + "," + pl.state
+      results.append(place_json)
+    data = json.dumps(results)
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)

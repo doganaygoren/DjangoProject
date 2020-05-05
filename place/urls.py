@@ -14,4 +14,6 @@ urlpatterns=[
 	path('comment/<int:id>',views.placeComment,name="placeComment"),
 	#ex: place/search
 	path('search', views.search, name="search"),
+	# ex:/place/search-auto
+	path('search_auto', views.search_auto, name="search_auto"),
 ]

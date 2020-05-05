@@ -27,6 +27,31 @@
     <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png' %}" />
     <link rel="shortcut icon" href="{% static 'ico/favicon.png' %}" /> 
 
+    <!-- jQuery !-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <script>
+
+      $(function() {
+        $("#search").autocomplete({
+          source: "/place/search_auto",
+          select: function (event, ui) { //item selected
+            AutoCompleteSelectHandler(event, ui)
+          },
+          minLength: 2,
+        });
+      });
+
+      function AutoCompleteSelectHandler(event, ui)
+      {
+        var selectedObj = ui.item;
+      }
+
+    </script>
+
+
     {% block css %} 
 
     {% endblock %}
@@ -175,11 +200,13 @@
                         <div class="logo">
                             <a href="/"><img src="{% static 'img/logo.png' %}" alt="" class="logo" /></a>
                             <div class="widget">
+                                <div class="ui-widget">
                                 <form action="/place/search" method="post" class="form-search">
                                     {% csrf_token %}
-                                    <input placeholder="Enter your place" name="search" type="text" class="input-medium search-query">
+                                    <input placeholder="Enter your place" id="search" name="search" type="text" class="input-medium search-query">
                                     <button type="submit" class="btn btn-square btn-theme">Search</button>
                                 </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -210,7 +237,7 @@
                                             <a href="/contact">Contact </a>
                                         </li>
                                         <li>
-                                            <a>smallWhat are you waiting for? Sign In Here <i class="icon-circle-arrow-up"></i></a>
+                                            <a>What are you waiting for? Sign In Here <i class="icon-circle-arrow-up"></i></a>
                                         </li>
                                     </ul>
                                 </nav>
