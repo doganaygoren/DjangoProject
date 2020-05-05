@@ -27,10 +27,8 @@ class Category(MPTTModel):
 	description=models.CharField(max_length=255)
 	image=models.ImageField(blank=True,upload_to='images/')
 	status=models.CharField(max_length=10, choices=STATUS)
-	slug=models.SlugField()
-
+	slug=models.SlugField(null=False, unique=True)
 	parent=TreeForeignKey('self',blank=True,null=True,related_name='children', on_delete=models.CASCADE)
-
 	created_at=models.DateTimeField(auto_now_add=True)
 	updated_at=models.DateTimeField(auto_now=True)
 	
@@ -49,21 +47,22 @@ class Category(MPTTModel):
 		return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
 	image_tag.short_description='Image'
 
+
+
 class Place(models.Model):
 
 	STATUS=(
 
 		('True', 'Active'),
 		('False', 'Inactive')
-	)
-	
+	)	
 	category=models.ForeignKey(Category, on_delete=models.CASCADE) #Relationship with Category Table
 	title=models.CharField(max_length=150)
 	keywords=models.CharField(max_length=255)
 	description=models.CharField(max_length=255)
 	image=models.ImageField(blank=True, upload_to='images/')
 	detail=RichTextUploadingField()
-	slug=models.SlugField(blank=True,max_length=100)
+	slug=models.SlugField(null=False, unique=True)
 	status=models.CharField(max_length=25,choices=STATUS)
 	created_at=models.DateTimeField(auto_now_add=True)
 	updated_at=models.DateTimeField(auto_now=True)
@@ -74,6 +73,7 @@ class Place(models.Model):
 	def image_tag(self):
 		return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
 	image_tag.short_description='Image'
+
 
 class Images(models.Model):
 	place=models.ForeignKey(Place,on_delete=models.CASCADE)
@@ -89,14 +89,12 @@ class Images(models.Model):
 
 
 class Comment(models.Model):
-
 	STATUS= (
 
 		('New', 'New'),
 		('True', 'Active'),
 		('False', 'Inactive'),
 	)
-
 	place=models.ForeignKey(Place, on_delete=models.CASCADE)
 	user=models.ForeignKey(User, on_delete=models.CASCADE)
 	subject=models.CharField(max_length=50)
@@ -115,3 +113,7 @@ class CommentForm(ModelForm):
 	class Meta:
 		model= Comment
 		fields=['subject', 'rate', 'comment']
+
+
+def get_absolute_url(self):
+	return reverse('category_detail', kwargs={'slug': self.slug})

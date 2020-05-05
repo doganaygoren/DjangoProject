@@ -28,6 +28,7 @@ class PlaceAdmin(admin.ModelAdmin):
 	list_filter=['status','created_at','category']
 	inlines=[PlaceImageInline]
 	readonly_fields=('image_tag',)
+	prepopulated_fields={'slug':('title',)}
 
 class ImageAdmin(admin.ModelAdmin):
 	list_display=['title', 'place', 'image_tag']
@@ -40,6 +41,7 @@ class CategoryAdmin2(DraggableMPTTAdmin):
 	list_display=('tree_actions', 'indented_title', 'related_places_count', 
 		'related_places_cumulative_count')
 	list_display_links=('indented_title',)
+	prepopulated_fields={'slug':('title',)}
 
 	def get_queryset(self, request):
 		qs= super().get_queryset(request)
