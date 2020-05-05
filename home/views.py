@@ -4,6 +4,9 @@ from home.models import Setting, ContactFormMessage, ContactForm
 from place.models import Place, Category, Images, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout, login
+from django.contrib.auth import authenticate
+from .forms import SignUpForm
 
 # Create your views here.
 
@@ -73,3 +76,40 @@ def placeDetail(request,id,slug):
 	content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces, 'comments':comments}
 	return render(request, 'place-detail.html', content)
 
+
+def logout_view(request):
+
+	logout(request)
+	return HttpResponseRedirect('/')
+
+def login_view(request):
+
+	if request.method == 'POST':
+		username=request.POST['username']
+		password=request.POST['password']
+		user=authenticate(request, username=username, password=password)
+		if user is not None:
+			login(request,user)
+			return HttpResponseRedirect('/')
+		else:
+			messages.warning(request, "Please check your username or password.")
+			return HttpResponseRedirect('/login')
+	return render(request, 'login.html')
+
+
+def signup_view(request):
+
+	if request.method=='POST':
+		form=SignUpForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username=form.cleaned_data.get('username')
+			password=form.cleaned_data.get('password1')
+			user=authenticate(request,username=username, password=password)
+			login(request,user)
+			return HttpResponseRedirect('/')
+		else:
+			messages.warning(request,form.errors)
+			return HttpResponseRedirect('/login/')
+
+	return render(request, 'login.html')

@@ -29,6 +29,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from home import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
@@ -39,6 +41,9 @@ urlpatterns = [
     path('contact/', include('home.urls')),
     path('place/', include('home.urls')),
     path('place/<int:id>/<slug:slug>/', include('home.urls')),
+    path('logout/', views.logout_view, name="logout_view"),
+    path('login/', views.login_view, name="login_view"),
+    path('signup/', views.signup_view, name="signup_view"),
 ]
 
 if settings.DEBUG: #new

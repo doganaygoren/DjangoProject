@@ -93,34 +93,56 @@
                     <div class="span12">
                         <div class="headnav">
                             <ul>
+                                {% if user.id is None %}
                                 <li><a href="#mySignup" data-toggle="modal"><i class="icon-user"></i> Sign up</a></li>
                                 <li><a href="#mySignin" data-toggle="modal">Sign in</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <!-- Signup Modal -->
+                        
                         <div id="mySignup" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySignupModalLabel" aria-hidden="true">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                 <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
                             </div>
                             <div class="modal-body">
-                                <form class="form-horizontal">
+                                <form method="post" action="/signup/" class="form-horizontal">
+                                    {% csrf_token %}
                                     <div class="control-group">
-                                        <label class="control-label" for="inputEmail">Email</label>
+                                        <label class="control-label">First Name</label>
                                         <div class="controls">
-                                            <input type="text" id="inputEmail" placeholder="Email">
+                                            <input type="text" name="first_name" placeholder="First Name">
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label" for="inputSignupPassword">Password</label>
+                                        <label class="control-label">Last Name</label>
                                         <div class="controls">
-                                            <input type="password" id="inputSignupPassword" placeholder="Password">
+                                            <input type="text" name="last_name" id="last_name" placeholder="Last Name">
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
+                                        <label class="control-label">Username</label>
                                         <div class="controls">
-                                            <input type="password" id="inputSignupPassword2" placeholder="Password">
+                                            <input type="text" name="username" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Email</label>
+                                        <div class="controls">
+                                            <input type="email" name="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Password</label>
+                                        <div class="controls">
+                                            <input type="password" name="password1" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Password Again</label>
+                                        <div class="controls">
+                                            <input type="password" name="password2" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -142,26 +164,24 @@
                                 <h4 id="mySigninModalLabel">Login to your <strong>account</strong></h4>
                             </div>
                             <div class="modal-body">
-                                <form class="form-horizontal">
+                                <form method="post" action="/login/" class="form-horizontal">
+                                    {% csrf_token %}
                                     <div class="control-group">
                                         <label class="control-label" for="inputText">Username</label>
                                         <div class="controls">
-                                            <input type="text" id="inputText" placeholder="Username">
+                                            <input type="text" name="username" id="inputText" placeholder="Username">
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label" for="inputSigninPassword">Password</label>
                                         <div class="controls">
-                                            <input type="password" id="inputSigninPassword" placeholder="Password">
+                                            <input type="password" name="password" id="inputSigninPassword" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <div class="controls">
                                             <button type="submit" class="btn">Sign in</button>
                                         </div>
-                                        <p class="aligncenter margintop20">
-                                            Forgot password? <a href="#myReset" data-dismiss="modal" aria-hidden="true" data-toggle="modal">Reset</a>
-                                        </p>
                                     </div>
                                 </form>
                             </div>
@@ -236,9 +256,18 @@
                                         <li>
                                             <a href="/contact">Contact </a>
                                         </li>
+                                        {% if user.id is not None %}
                                         <li>
-                                            <a>What are you waiting for? Sign In Here <i class="icon-circle-arrow-up"></i></a>
+                                            <a href="/profile"><strong>Welcome {{ user.first_name }}</strong></a>
                                         </li>
+                                        <li>
+                                            <a href="/logout">Logout</a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="/login">What are you waiting for? Sign In Here <i class="icon-circle-arrow-up"></i></a>
+                                        </li>
+                                        {% endif %}
                                     </ul>
                                 </nav>
                             </div>
