@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Setting, ContactFormMessage
+from home.models import Setting, ContactFormMessage, UserProfile
 
 # Register your models here.
 
@@ -15,7 +15,13 @@ class ContactFormAdmin(admin.ModelAdmin):
 	list_filter=['status','created_at']
 
 
+class UserProfileAdmin(admin.ModelAdmin):
+
+	list_display=['user_name','phone','city', 'country' ,'image_tag']
+
+
 
 
 admin.site.register(ContactFormMessage,ContactFormAdmin)
 admin.site.register(Setting)
+admin.site.register(UserProfile,UserProfileAdmin)
