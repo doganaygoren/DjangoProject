@@ -40,6 +40,7 @@ urlpatterns = [
     path('about/', include ('home.urls')),
     path('contact/', include('home.urls')),
     path('place/', include('home.urls')),
+    path('user/', include('user.urls')),
     path('place/<int:id>/<slug:slug>/', include('home.urls')),
     path('logout/', views.logout_view, name="logout_view"),
     path('login/', views.login_view, name="login_view"),

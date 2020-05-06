@@ -1,0 +1,99 @@
+{% extends 'homebase.html' %}
+
+{% block title %} {{ user.first_name }} {{ user.last_name }} Profile || Absolute Journey {% endblock %}
+
+{% block inner_headline %}
+
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="span4">
+                <div class="inner-heading">
+                    <h2>{{ user.first_name }} {{ user.last_name }} Profile</h2>
+                </div>
+            </div>
+            <div class="span8">
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                    <li class="active">{{ user.first_name }} {{ user.last_name }} Profile</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block main_content %}
+
+              <div class="span12">
+                <h4>User <strong>Panel</strong></h4>
+                <div class="tabbable tabs-left">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#topone" data-toggle="tab">Settings</a></li>
+                    <li><a href="#toptwo" data-toggle="tab">Comments</a></li>
+                    <li><a href="#topthree" data-toggle="tab">Places</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="topone">
+                      
+                   <div class="span8">
+            <table class="table">
+
+            	<tr>
+            		<th></th>
+            		<td><img style="height: 200px; width: 200px;" src="{{ profile.image.url }}"></td>
+            	</tr>
+            	<tr>
+            		<th>Name Surname</th>
+            		<td>{{ profile.user.first_name }} {{ profile.user.last_name }}</td>
+            	</tr>
+            	<tr>
+            		<th>Username</th>
+            		<td>{{ profile.user.username }}</td>
+            	</tr>
+            	<tr>
+            		<th>Email</th>
+            		<td>{{ profile.user.email }}</td>
+            	</tr>
+            	<tr>
+            		<th>Phone</th>
+            		<td>{{ profile.phone }}</td>
+            	</tr>
+            	<tr>
+            		<th>City</th>
+            		<td>{{ profile.city }}</td>
+            	</tr>
+            	<tr>
+            		<th>Country</th>
+            		<td>{{ profile.country }}</td>
+            	</tr>
+            	<tr>
+            		<th><button type="submit">Edit</button></th>
+            		<td></td>
+            	</tr>
+
+            </table>
+          </div>
+      
+
+                    </div>
+                    <div class="tab-pane" id="toptwo">
+                      <p>
+                        Tale dolor mea ex, te enim assum suscipit cum, vix aliquid omittantur in. Duo eu cibo dolorum menandri, nam sumo dicit admodum ei. Ne mazim commune honestatis cum, mentitum phaedrum sit et.
+                      </p>
+                    </div>
+                    <div class="tab-pane" id="topthree">
+                      <p>
+                        Cu cum commodo regione definiebas. Cum ea eros laboramus, audire deseruisse his at, munere aeterno ut quo. Et ius doming causae philosophia, vitae bonorum intellegat usu cu.
+                      </p>
+                      <p>
+                        Tale dolor mea ex, te enim assum suscipit cum, vix aliquid omittantur in. Duo eu cibo dolorum menandri, nam sumo dicit admodum ei. Ne mazim commune honestatis cum, mentitum phaedrum sit et.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- end tab -->
+              </div>
+
+{% endblock %}
