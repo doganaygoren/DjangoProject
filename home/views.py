@@ -68,12 +68,14 @@ def place(request):
 
 def placeDetail(request,id,slug):
 
+	categories=Category.objects.all()
 	place=Place.objects.get(id=id)
 	gallery= Images.objects.filter(place_id=id)
 	category=Category.objects.all()
 	lastPlaces=Place.objects.all().order_by('-id')[:3]
 	comments= Comment.objects.filter(place_id=id,status='True')
-	content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces, 'comments':comments}
+	content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces,
+	 'comments':comments, 'categories':categories}
 	return render(request, 'place-detail.html', content)
 
 
@@ -94,7 +96,9 @@ def login_view(request):
 		else:
 			messages.warning(request, "Please check your username or password.")
 			return HttpResponseRedirect('/login')
-	return render(request, 'login.html')
+	categories=Category.objects.all()
+	content={'categories':categories}
+	return render(request, 'login.html',content)
 
 
 def signup_view(request):
@@ -111,5 +115,6 @@ def signup_view(request):
 		else:
 			messages.warning(request,form.errors)
 			return HttpResponseRedirect('/login/')
-
-	return render(request, 'login.html')
+	categories=Category.objects.all()
+	content={'categories':categories}
+	return render(request, 'login.html',content)

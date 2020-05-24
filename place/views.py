@@ -47,9 +47,10 @@ def search(request):
 		form=SearchForm(request.POST)
 		if form.is_valid():
 			category=Category.objects.all()
+			categories=Category.objects.all()
 			query=form.cleaned_data['search']
 			results=Place.objects.filter(title__icontains=query)
-			content={'results':results,}
+			content={'results':results,'categories':categories}
 			return render(request, 'place-search.html', content)
 	return HttpResponseRedirect('/')
 

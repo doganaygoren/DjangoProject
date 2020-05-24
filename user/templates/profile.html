@@ -38,6 +38,14 @@
                     <div class="tab-pane active" id="topone">
                       
                    <div class="span8">
+                    {% if messages %}
+          {% for message in messages %}
+              <div class="alert alert-{{message.tags}}" role="alert">
+                {{ message }}
+              </div>
+          {% endfor %}
+        {% endif %}
+
             <table class="table">
 
             	<tr>
@@ -69,7 +77,7 @@
             		<td>{{ profile.country }}</td>
             	</tr>
             	<tr>
-            		<th><button type="submit">Edit</button></th>
+            		<th><a href="/user/profile_edit"><button class="btn-info" type="submit">Edit</button></a> <a href="/user/change_password"><button class="btn-info" type="submit">Change Password</button></a> </th>
             		<td></td>
             	</tr>
 
