@@ -83,13 +83,46 @@
 
             </table>
           </div>
-      
-
                     </div>
                     <div class="tab-pane" id="toptwo">
-                      <p>
-                        Tale dolor mea ex, te enim assum suscipit cum, vix aliquid omittantur in. Duo eu cibo dolorum menandri, nam sumo dicit admodum ei. Ne mazim commune honestatis cum, mentitum phaedrum sit et.
-                      </p>
+                      
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-{{message.tags}}" role="alert">
+                            {{ message }}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+
+                      <table class="table">
+                        <tr>
+                          <th>Place</th>
+                          <th>Subject</th>
+                          <th>Comment</th>
+                          <th>Rate</th>
+                          <th>Status</th>
+                          <th>Date</th>
+                          <th>Operation</th>
+                        </tr>
+                        {% if comments %}
+                          {% for comment in comments %}
+                            <tr>
+                              <td> <a href="/place/{{ comment.place.id }}/{{ comment.place.slug }}">{{ comment.place.title }}</a></td>
+                              <td>{{ comment.subject }}</td>
+                              <td>{{ comment.comment }}</td>
+                              <td>{{ comment.rate }}</td>
+                              <td>{{ comment.status }}</td>
+                              <td>{{ comment.created_at }}</td>
+                              <td><button type="submit"><a href="/user/deletecomment/{{ comment.id }}" onclick="return confirm('You are about to delete a comment. Are you sure?')">Delete</a></button></td>
+                            </tr>
+                          {% endfor %}
+                        {% else %}
+                          <tr>
+                            <td colspan="7">You have no comment available</td>
+                          </tr>
+                        {% endif %}
+                      </table>
+
                     </div>
                     <div class="tab-pane" id="topthree">
                       <p>

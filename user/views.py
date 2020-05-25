@@ -1,26 +1,31 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from home.models import UserProfile
-from place.models import Category
+from place.models import Category, Comment, Place
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
 
 def index(request):
-	return HttpResponse("User Page")
+	return HttpResponseRedirect("/user/profile")
 
+@login_required(login_url='/login')
 def profile(request):
 
 	current_user=request.user
 	profile= UserProfile.objects.get(user_id=current_user.id)
 	categories=Category.objects.all()
-	content={ 'profile':profile, 'categories':categories }
+	comments=Comment.objects.filter(user_id=current_user.id)
+	content={ 'profile':profile, 'categories':categories, 'comments':comments,}
 	return render(request, 'profile.html',content)
 
+@login_required(login_url='/login')
 def profile_edit(request):
 
 	if request.method=='POST':
@@ -44,6 +49,7 @@ def profile_edit(request):
 		return render(request, 'profile_edit.html', content)
 
 
+@login_required(login_url='/login')
 def change_password(request):
 
 	if request.method=='POST':
@@ -61,3 +67,22 @@ def change_password(request):
 		form=PasswordChangeForm(request.user)
 		content={'form':form, 'categories':categories}
 		return render(request, 'password_change.html', content)
+
+
+@login_required(login_url='/login')
+def user_comments(request):
+
+	categories=Category.objects.all()
+	current_user=request.user
+	comments=Comment.objects.filter(user_id=current_user.id)
+	content={'categories':categories, 'comments':comments, }
+	return render(request, 'profile.html', content)
+
+
+@login_required(login_url='/login')
+def deletecomment(request,id):
+
+	current_user=request.user
+	Comment.objects.filter(id=id, user_id=current_user.id).delete()
+	messages.success(request, "Comment deleted successfully")
+	return HttpResponseRedirect('/user/profile')
