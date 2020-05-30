@@ -19,10 +19,10 @@ from .forms import SignUpForm
 def index(request):
 
 	setting= Setting.objects.get(pk=1)
-	slider= Place.objects.all().order_by('?')[:3]
+	slider= Place.objects.filter(status='True').order_by('?')[:3]
 	categories=Category.objects.all()
-	checkOutPlaces=Place.objects.all()[:10]
-	bestPlaces=Place.objects.all().order_by('?')[:4]
+	checkOutPlaces=Place.objects.filter(status='True')[:10]
+	bestPlaces=Place.objects.filter(status='True').order_by('-id')[:4]
 
 	content= {'setting': setting, 'page': 'home', 'slider':slider, 'categories':categories,
 				'checkOutPlaces':checkOutPlaces, 'bestPlaces': bestPlaces }
@@ -61,7 +61,7 @@ def contact(request):
 def place(request):
 
 	categories=Category.objects.all()
-	places=Place.objects.all()
+	places=Place.objects.filter(status='True')
 	content={'categories' : categories, 'places':places}
 	return render(request, 'place.html', content)
 
@@ -73,7 +73,7 @@ def placeDetail(request,id,slug):
 		place=Place.objects.get(id=id)
 		gallery= Images.objects.filter(place_id=id)
 		category=Category.objects.all()
-		lastPlaces=Place.objects.all().order_by('-id')[:3]
+		lastPlaces=Place.objects.filter(status='True').order_by('-id')[:3]
 		comments= Comment.objects.filter(place_id=id,status='True')
 		content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces,
 		 'comments':comments, 'categories':categories}

@@ -125,12 +125,46 @@
 
                     </div>
                     <div class="tab-pane" id="topthree">
-                      <p>
-                        Cu cum commodo regione definiebas. Cum ea eros laboramus, audire deseruisse his at, munere aeterno ut quo. Et ius doming causae philosophia, vitae bonorum intellegat usu cu.
-                      </p>
-                      <p>
-                        Tale dolor mea ex, te enim assum suscipit cum, vix aliquid omittantur in. Duo eu cibo dolorum menandri, nam sumo dicit admodum ei. Ne mazim commune honestatis cum, mentitum phaedrum sit et.
-                      </p>
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-{{message.tags}}" role="alert">
+                            {{ message }}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+
+                      <div>
+                        
+                        <a href="/user/addcontent"><button class="btn-info">Add a New Place</button></a>
+
+                      </div>
+                      <table style="margin-top: 10px;" class="table">
+                        <tr>
+                          <th>Image</th>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Status</th>
+                          <th>Date</th>
+                          <th colspan="2">Operation</th>
+                        </tr>
+                        {% if places %}
+                          {% for place in places %}
+                            <tr>
+                              <td> <a href="/place/{{ place.id }}/{{ place.slug }}"><img style="height: 150px; width: 150px;" src="{{ place.image.url }}"></a> </td>
+                              <td> <a href="/place/{{ place.id }}/{{ place.slug }}">{{ place.title }}</a></td>
+                              <td>{{ place.description }}</td>
+                              <td>{{ place.status }}</td>
+                              <td>{{ place.created_at }}</td>
+                              <td><button type="submit"><a href="/user/editplace/{{ place.id }}">Edit</a></button></td>
+                              <td><button type="submit"><a href="/user/deleteplace/{{ place.id }}" onclick="return confirm('You are about to delete a place. Are you sure?')">Delete</a></button></td>
+                            </tr>
+                          {% endfor %}
+                        {% else %}
+                          <tr>
+                            <td colspan="7">You have no places available</td>
+                          </tr>
+                        {% endif %}
+                      </table>
                     </div>
                   </div>
                 </div>

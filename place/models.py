@@ -55,7 +55,8 @@ class Place(models.Model):
 
 		('True', 'Active'),
 		('False', 'Inactive')
-	)	
+	)
+	user=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 	category=models.ForeignKey(Category, on_delete=models.CASCADE) #Relationship with Category Table
 	title=models.CharField(max_length=150)
 	keywords=models.CharField(max_length=255)

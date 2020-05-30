@@ -18,4 +18,11 @@ urlpatterns=[
 	path('change_password', views.change_password, name="change_password"),
 	# ex:/user/deletecomment/1
 	path('deletecomment/<int:id>', views.deletecomment, name="deletecomment"),
+	# ex:/user/addcontent
+	path('addcontent', views.addcontent, name="addcontent"),
+	# ex:/user/editplace/1
+	path('editplace/<int:id>', views.editplace, name="editplace"),
+	#ex: /user/deleteplace/1
+	path('deleteplace/<int:id>', views.deleteplace, name="deleteplace"),
+
 ]

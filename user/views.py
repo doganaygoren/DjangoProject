@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
-
+from .forms import UserContentForm
 
 
 # Create your views here.
@@ -21,8 +21,9 @@ def profile(request):
 	current_user=request.user
 	profile= UserProfile.objects.get(user_id=current_user.id)
 	categories=Category.objects.all()
-	comments=Comment.objects.filter(user_id=current_user.id)
-	content={ 'profile':profile, 'categories':categories, 'comments':comments,}
+	comments=Comment.objects.filter(user_id=current_user.id).order_by('-id')
+	places=Place.objects.filter(user_id=current_user.id).order_by('-id')
+	content={ 'profile':profile, 'categories':categories, 'comments':comments, 'places':places,}
 	return render(request, 'profile.html',content)
 
 @login_required(login_url='/login')
@@ -85,4 +86,72 @@ def deletecomment(request,id):
 	current_user=request.user
 	Comment.objects.filter(id=id, user_id=current_user.id).delete()
 	messages.success(request, "Comment deleted successfully")
+	return HttpResponseRedirect('/user/profile')
+
+
+@login_required(login_url='/login')
+def user_places(request):
+
+	categories=Category.objects.all()
+	current_user=request.user
+	places=Place.objects.filter(user_id=current_user.id)
+	content={'categories':categories, 'places':places, }
+	return render(request, 'profile.html', content)
+
+
+
+@login_required(login_url='/login')
+def addcontent(request):
+
+	form= UserContentForm(request.POST, request.FILES)
+	if request.method=='POST':
+		if form.is_valid():
+			current_user=request.user
+			data=Place()
+			data.user_id=current_user.id
+			data.category=form.cleaned_data['category']
+			data.title=form.cleaned_data['title']
+			data.keywords=form.cleaned_data['keywords']
+			data.description=form.cleaned_data['description']
+			data.image=form.cleaned_data['image']
+			data.slug=form.cleaned_data['slug']
+			data.detail=form.cleaned_data['detail']
+			data.status='False'
+			data.save()
+			messages.success(request, "Your Place is Added Successfully.")
+			return HttpResponseRedirect('/user/profile')
+		else:
+			messages.warning(request, "Please Correct the Error in Places Section. <br>" + str(form.errors))
+			return HttpResponseRedirect('/user/addcontent')
+	else:
+		categories=Category.objects.all()
+		content={'categories':categories, 'form':form,}
+		return render(request, 'add-content.html', content)
+
+@login_required(login_url='/login')
+def editplace(request,id):
+	
+	place=Place.objects.get(id=id)
+	if request.method=='POST':
+		form=UserContentForm(request.POST, request.FILES, instance=place)
+		if form.is_valid():
+			form.save()
+			messages.success(request, "Your Place is Updated Successfully.")
+			return HttpResponseRedirect('/user/profile')
+		else:
+			messages.warning(request, "Please Correct the Error in Places Section. <br>" + str(form.errors))
+			return HttpResponseRedirect('/user/editplace/'+str(id))
+	else:
+		categories=Category.objects.all()
+		form=UserContentForm(instance=place)
+		content={'categories':categories, 'form':form,}
+		return render(request, 'add-content.html',content)
+
+
+@login_required(login_url='/login')
+def deleteplace(request,id):
+
+	current_user=request.user
+	Place.objects.filter(id=id, user_id=current_user.id).delete()
+	messages.success(request, 'Place Deleted Successfully.')
 	return HttpResponseRedirect('/user/profile')
