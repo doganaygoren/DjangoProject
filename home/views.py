@@ -68,16 +68,18 @@ def place(request):
 
 def placeDetail(request,id,slug):
 
-	categories=Category.objects.all()
-	place=Place.objects.get(id=id)
-	gallery= Images.objects.filter(place_id=id)
-	category=Category.objects.all()
-	lastPlaces=Place.objects.all().order_by('-id')[:3]
-	comments= Comment.objects.filter(place_id=id,status='True')
-	content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces,
-	 'comments':comments, 'categories':categories}
-	return render(request, 'place-detail.html', content)
-
+	try:
+		categories=Category.objects.all()
+		place=Place.objects.get(id=id)
+		gallery= Images.objects.filter(place_id=id)
+		category=Category.objects.all()
+		lastPlaces=Place.objects.all().order_by('-id')[:3]
+		comments= Comment.objects.filter(place_id=id,status='True')
+		content={'place':place, 'gallery':gallery, 'category':category, 'lastPlaces':lastPlaces,
+		 'comments':comments, 'categories':categories}
+		return render(request, 'place-detail.html', content)
+	except:
+		return HttpResponseRedirect('/error')
 
 def logout_view(request):
 
@@ -118,3 +120,9 @@ def signup_view(request):
 	categories=Category.objects.all()
 	content={'categories':categories}
 	return render(request, 'login.html',content)
+
+def error(request):
+	categories=Category.objects.all()
+	content={'categories':categories}
+	return render(request, '404.html',content)
+

@@ -49,7 +49,7 @@
                     <a href="/place/{{ result.id }}/{{ result.slug }}"><img style="width: 175px; height: 75px;" src="{{ result.image.url }}"></a>
                   </td>
                   <td>
-                    {{ result.title }}
+                    <a href="/place/{{ result.id }}/{{ result.slug }}">{{ result.title }}</a>
                   </td>
                   <td>
                     <a href="/place">{{ result.category }}</a>
@@ -58,8 +58,8 @@
                 {% endfor %}
                 {% else %}
                 <tr>
-                	<td>
-                		There is no result for your search. Please try another place.
+                	<td colspan="3">
+                		There is no result for your search query. Please try another place or you can check out places by clicking <strong><a href="/place">here</a></strong>
                 	</td>
                 </tr>
                 {% endif %}
