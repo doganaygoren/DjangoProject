@@ -24,5 +24,7 @@ urlpatterns=[
 	path('editplace/<int:id>', views.editplace, name="editplace"),
 	#ex: /user/deleteplace/1
 	path('deleteplace/<int:id>', views.deleteplace, name="deleteplace"),
+	#ex: /user/placeimage/1
+	path('placeimage/<int:id>', views.placeimage, name="placeimage"),
 
 ]

@@ -142,6 +142,7 @@
                         <tr>
                           <th>Image</th>
                           <th>Title</th>
+                          <th>Gallery</th>
                           <th>Description</th>
                           <th>Status</th>
                           <th>Date</th>
@@ -152,6 +153,9 @@
                             <tr>
                               <td> <a href="/place/{{ place.id }}/{{ place.slug }}"><img style="height: 150px; width: 150px;" src="{{ place.image.url }}"></a> </td>
                               <td> <a href="/place/{{ place.id }}/{{ place.slug }}">{{ place.title }}</a></td>
+                              <td> <a href="javascript:;" onclick="window.open('/user/placeimage/{{ place.id }}', 'gallery', 'height=600, width=800, top=50, left=150')">
+                                <img style="height: 50px; width: 50px;" src="/uploads/images/gallery.png">
+                              </a></td>
                               <td>{{ place.description }}</td>
                               <td>{{ place.status }}</td>
                               <td>{{ place.created_at }}</td>

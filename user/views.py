@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from home.models import UserProfile
-from place.models import Category, Comment, Place
+from place.models import Category, Comment, Place, UserContentImageForm, Images
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
@@ -155,3 +155,27 @@ def deleteplace(request,id):
 	Place.objects.filter(id=id, user_id=current_user.id).delete()
 	messages.success(request, 'Place Deleted Successfully.')
 	return HttpResponseRedirect('/user/profile')
+
+
+def placeimage(request,id):
+	if request.method=='POST':
+		lasturl=request.META.get('HTTP_REFERER')
+		form=UserContentImageForm(request.POST, request.FILES)
+		if form.is_valid():
+			data=Images()
+			data.title=form.cleaned_data['title']
+			data.place_id=id
+			data.image=form.cleaned_data['image']
+			data.save()
+			messages.success(request, "Your image is added to the gallery.")
+			return HttpResponseRedirect(lasturl)
+		else:
+			messages.warning(request, "Image Upload Error :" + str(form.errors))
+			return HttpResponseRedirect(lasturl)
+	else:
+
+		places=Place.objects.get(id=id)
+		images=Images.objects.filter(place_id=id)
+		form=UserContentImageForm()
+		content={'places':places, 'images':images,'form':form}
+		return render(request, 'user_place_gallery.html', content)
