@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from home.models import Setting, ContactFormMessage, ContactForm, Faq
+from home.models import Setting, ContactFormMessage, ContactForm, Faq, UserProfile
 from place.models import Place, Category, Images, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -113,6 +113,11 @@ def signup_view(request):
 			password=form.cleaned_data.get('password1')
 			user=authenticate(request,username=username, password=password)
 			login(request,user)
+			current_user=request.user
+			data=UserProfile()
+			data.user_id=current_user.id
+			data.image="images/users/user.jpg"
+			data.save()
 			return HttpResponseRedirect('/')
 		else:
 			messages.warning(request,form.errors)
