@@ -22,6 +22,8 @@ urlpatterns=[
 	path('place', views.place, name="place"),
 	# ex:/place/1/statue
 	path('place/<int:id>/<slug:slug>', views.placeDetail, name="placeDetail"),
-	# ex:/error
-	path('error', views.error, name="error")
+	# ex:/error/
+	path('error', views.error, name="error"),
+	# ex:/faq/
+	path('faq',views.faq, name="faq"),
 ]

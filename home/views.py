@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from home.models import Setting, ContactFormMessage, ContactForm
+from home.models import Setting, ContactFormMessage, ContactForm, Faq
 from place.models import Place, Category, Images, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -126,3 +126,10 @@ def error(request):
 	content={'categories':categories}
 	return render(request, '404.html',content)
 
+
+
+def faq(request):
+	categories=Category.objects.all()
+	faqs=Faq.objects.all().order_by('orderNo')
+	content={'categories':categories, 'faqs':faqs}
+	return render(request, 'faq.html',content)

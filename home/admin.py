@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Setting, ContactFormMessage, UserProfile
+from home.models import Setting, ContactFormMessage, UserProfile, Faq
 
 # Register your models here.
 
@@ -20,8 +20,13 @@ class UserProfileAdmin(admin.ModelAdmin):
 	list_display=['user_name','phone','city', 'country' ,'image_tag']
 
 
+class FaqAdmin(admin.ModelAdmin):
 
+	list_display=['orderNo','question', 'status','created_at' ]
+	list_filter=['status', 'created_at']
+	list_editable=['status']
 
 admin.site.register(ContactFormMessage,ContactFormAdmin)
 admin.site.register(Setting)
 admin.site.register(UserProfile,UserProfileAdmin)
+admin.site.register(Faq,FaqAdmin)
